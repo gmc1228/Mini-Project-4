@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database');  // Assume a database setup
+const db = require('../database');
 
-// Sign-in route
 router.post('/signin', async (req, res) => {
   const { user_id, password } = req.body;
-  // Perform database lookup and authentication here
-  const user = await db.findUserById(user_id);  // Replace with actual database logic
+  const user = await db.findUserById(user_id);
   if (user && user.password === password) {
     res.json({ message: 'Sign-in successful!' });
   } else {
@@ -14,12 +12,10 @@ router.post('/signin', async (req, res) => {
   }
 });
 
-// Sign-up route
 router.post('/signup', async (req, res) => {
   const { user_id, password, name } = req.body;
-  // Save user details in database here
   try {
-    await db.saveNewUser({ user_id, password, name });  // Replace with actual database logic
+    await db.saveNewUser({ user_id, password, name });
     res.json({ message: 'Sign-up successful!' });
   } catch (error) {
     res.json({ message: 'Error during sign-up' });

@@ -17,12 +17,9 @@ function SignIn() {
       const data = await response.json();
       
       if (response.ok) {
-        // If sign-in is successful, store the user ID in local storage
-        localStorage.setItem('userId', userId); // Store user ID in local storage
-        setMessage(data.message); // Show success message
-        // You can add redirection here if needed, e.g., window.location.href = '/';
+        localStorage.setItem('userId', userId);
+        setMessage(data.message);
       } else {
-        // If sign-in fails, show error message
         setMessage(data.message);
       }
     } catch (error) {

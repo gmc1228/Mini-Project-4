@@ -1,41 +1,39 @@
 import React, { useEffect, useState } from 'react';
 
 function PostList() {
-  const [posts, setPosts] = useState([]); // State to hold posts
-  const [error, setError] = useState(null); // State to hold error messages
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Fetch posts from the backend
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/posts'); // Adjust the endpoint as necessary
+        const response = await fetch('/posts'); 
         if (!response.ok) {
           throw new Error('Failed to fetch posts');
         }
         const data = await response.json();
-        setPosts(data); // Update state with fetched posts
+        setPosts(data);
       } catch (error) {
-        setError(error.message); // Update error state
+        setError(error.message);
       }
     };
 
-    fetchPosts(); // Call the fetch function
+    fetchPosts();
   }, []);
 
-  // Handle delete action
   const handleDelete = async (postId) => {
     const confirmed = window.confirm('Are you sure you want to delete this post?');
     if (confirmed) {
       try {
         const response = await fetch(`/delete/${postId}`, {
-          method: 'POST', // Use POST to trigger the delete action
+          method: 'POST',
         });
         if (!response.ok) {
           throw new Error('Failed to delete the post');
         }
-        setPosts(posts.filter((post) => post.id !== postId)); // Remove deleted post from state
+        setPosts(posts.filter((post) => post.id !== postId));
       } catch (error) {
-        setError(error.message); // Update error state
+        setError(error.message);
       }
     }
   };
